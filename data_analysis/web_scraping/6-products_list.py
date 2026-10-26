@@ -2,7 +2,6 @@
 """Scrapes a static product category page using Selenium."""
 import time
 from selenium import webdriver
-from selenium.webdriver.common.by import By
 
 
 def scrape_products_list(url):
@@ -18,16 +17,15 @@ def scrape_products_list(url):
         driver.get(url)
         time.sleep(2)
 
-        cards = driver.find_elements(By.CLASS_NAME, "thumbnail")
+        cards = driver.find_elements("css selector", "div.thumbnail")
         for card in cards:
             title = card.find_element(
-                By.CSS_SELECTOR, "a.title").get_attribute("title")
-            price = card.find_element(
-                By.CSS_SELECTOR, "h4.price").text
+                "css selector", "a.title").get_attribute("title")
+            price = card.find_element("css selector", "h4.price").text
             description = card.find_element(
-                By.CSS_SELECTOR, "p.description").text
+                "css selector", "p.description").text
             rating = len(card.find_elements(
-                By.CSS_SELECTOR, "p[data-rating] span.ws-icon-star"))
+                "css selector", "p.ratings > span.ws-icon-star"))
             products.append({
                 "title": title,
                 "price": price,

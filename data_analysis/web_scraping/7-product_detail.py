@@ -16,15 +16,13 @@ def scrape_product_detail(url, delay=2.0):
         driver.get(url)
         time.sleep(delay)
 
-        from selenium.webdriver.common.by import By
-        caption = driver.find_element(By.CSS_SELECTOR, ".caption")
-        title = caption.find_elements(By.TAG_NAME, "h4")[1].text
-        price = driver.find_element(
-            By.CSS_SELECTOR, "h4.price").text
+        caption = driver.find_element("css selector", ".caption")
+        title = caption.find_elements("css selector", "h4")[1].text
+        price = driver.find_element("css selector", "h4.price").text
         description = driver.find_element(
-            By.CSS_SELECTOR, "p.description").text
+            "css selector", "p.description").text
         rating = len(driver.find_elements(
-            By.CSS_SELECTOR, ".ratings p.ws-icon-star"))
+            "css selector", ".ratings p.ws-icon-star"))
 
         detail = {
             "title": title,
