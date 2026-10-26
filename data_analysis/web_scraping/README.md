@@ -19,7 +19,9 @@ JSON-LD extraction, authenticated scraping and headless browsing.
 | `3-scrape_via_api.py` | `scrape_via_api(base_url)` - scrape quotes from the JSON API |
 | `4-extract_jsonld.py` | `extract_jsonld(url)` - extract quotes from embedded JSON-LD |
 | `5-login_and_scrape.py` | `login_and_scrape(login_url, user, pwd)` - log in and scrape protected quotes |
-| `6-products_list.py` | `scrape_products_list(url)` - scrape a product page with Selenium |
+| `6-products_list.py` | `scrape_products_list(url)` - scrape a product list with Selenium |
+| `7-product_detail.py` | `scrape_product_detail(url, delay=2.0)` - scrape a single product detail page |
+| `8-scroll_and_scrape.py` | `scroll_and_scrape(url, scroll_pause=2.0)` - scrape an infinite-scroll page |
 
 ## Author
 Kleant Laboti
