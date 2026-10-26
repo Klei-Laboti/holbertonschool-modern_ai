@@ -15,17 +15,17 @@ def scrape_products_list(url):
     products = []
     try:
         driver.get(url)
-        time.sleep(2)
+        time.sleep(3)
 
-        cards = driver.find_elements("css selector", "div.thumbnail")
+        cards = driver.find_elements("css selector", ".thumbnail")
         for card in cards:
             title = card.find_element(
                 "css selector", "a.title").get_attribute("title")
-            price = card.find_element("css selector", "h4.price").text
+            price = card.find_element("css selector", ".price").text
             description = card.find_element(
-                "css selector", "p.description").text
+                "css selector", ".description").text
             rating = len(card.find_elements(
-                "css selector", "p.ratings > span.ws-icon-star"))
+                "css selector", ".ratings span.ws-icon-star"))
             products.append({
                 "title": title,
                 "price": price,

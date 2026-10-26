@@ -18,11 +18,11 @@ def scrape_product_detail(url, delay=2.0):
 
         caption = driver.find_element("css selector", ".caption")
         title = caption.find_elements("css selector", "h4")[1].text
-        price = driver.find_element("css selector", "h4.price").text
+        price = driver.find_element("css selector", ".price").text
         description = driver.find_element(
-            "css selector", "p.description").text
+            "css selector", ".description").text
         rating = len(driver.find_elements(
-            "css selector", ".ratings p.ws-icon-star"))
+            "css selector", ".ratings span.ws-icon-star"))
 
         detail = {
             "title": title,
