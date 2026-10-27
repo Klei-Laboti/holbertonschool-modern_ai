@@ -1,38 +1,54 @@
 #!/usr/bin/env python3
-"""Scrapes a static product category page using Selenium."""
+"""Scrape the products of a static category page with Selenium."""
 import time
 from selenium import webdriver
 
+CSS = "css selector"
 
-def scrape_products_list(url):
-    """Open url in headless Chrome, return a list of product dicts."""
+
+def make_driver():
+    """Return a headless Chrome driver in a 1920x1080 window."""
     options = webdriver.ChromeOptions()
-    options.add_argument("--headless")
-    options.add_argument("--no-sandbox")
+    options.add_argument("--headless=new")
     options.add_argument("--window-size=1920,1080")
-    driver = webdriver.Chrome(options=options)
+    options.add_argument("--no-sandbox")
+    options.add_argument("--disable-dev-shm-usage")
+    return webdriver.Chrome(options=options)
 
-    products = []
+
+def scrape_products(url):
+    """Return the products of a category page as a list of dicts.
+
+    Each dict holds the title, price, description and star rating.
+    Products that appear twice are kept only once.
+    """
+    driver = make_driver()
     try:
+        driver.implicitly_wait(10)
         driver.get(url)
-        time.sleep(3)
-
-        cards = driver.find_elements("css selector", ".thumbnail")
-        for card in cards:
-            title = card.find_element(
-                "css selector", "a.title").get_attribute("title")
-            price = card.find_element("css selector", ".price").text
-            description = card.find_element(
-                "css selector", ".description").text
-            rating = len(card.find_elements(
-                "css selector", ".ratings span.ws-icon-star"))
-            products.append({
-                "title": title,
-                "price": price,
-                "description": description,
-                "rating": rating,
-            })
+        time.sleep(1)
+        products = []
+        seen = set()
+        for card in driver.find_elements(CSS, ".thumbnail"):
+            link = card.find_element(CSS, "a.title")
+            price = card.find_element(CSS, "h4.price")
+            desc = card.find_element(CSS, "p.description")
+            stars = card.find_element(CSS, ".ratings p[data-rating]")
+            product = {
+                "title": link.get_attribute("title"),
+                "price": price.text.strip(),
+                "description": desc.text.strip(),
+                "rating": int(stars.get_attribute("data-rating")),
+            }
+            key = (product["title"], product["price"],
+                   product["description"])
+            if key in seen:
+                continue
+            seen.add(key)
+            products.append(product)
+        return products
     finally:
         driver.quit()
 
-    return products
+
+scrape_products_list = scrape_products
