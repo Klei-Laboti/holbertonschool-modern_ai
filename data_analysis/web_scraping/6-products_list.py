@@ -9,10 +9,10 @@ CSS = "css selector"
 def make_driver():
     """Return a headless Chrome driver in a 1920x1080 window."""
     options = webdriver.ChromeOptions()
-    options.add_argument("--headless=new")
-    options.add_argument("--window-size=1920,1080")
+    options.add_argument("--headless")
     options.add_argument("--no-sandbox")
     options.add_argument("--disable-dev-shm-usage")
+    options.add_argument("--window-size=1920,1080")
     return webdriver.Chrome(options=options)
 
 
@@ -24,9 +24,8 @@ def scrape_products(url):
     """
     driver = make_driver()
     try:
-        driver.implicitly_wait(10)
         driver.get(url)
-        time.sleep(1)
+        time.sleep(3)
         products = []
         seen = set()
         for card in driver.find_elements(CSS, ".thumbnail"):
