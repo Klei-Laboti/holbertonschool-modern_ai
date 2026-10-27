@@ -53,7 +53,7 @@ def scroll_and_scrape(url, scroll_pause=2.0):
                 continue
             seen.add((title, cost))
             desc = card.find_element(CSS, "p.description").text.strip()
-            stars = card.find_elements(CSS, ".ratings .ws-icon-star")
+            stars = card.find_elements(CSS, ".ratings span.ws-icon-star")
             products.append({
                 "title": title,
                 "price": cost,
