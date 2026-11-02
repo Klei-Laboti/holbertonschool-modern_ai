@@ -32,5 +32,4 @@ def plot_categorical_distributions(df, columns_to_plot=None):
         fig.delaxes(axes[j])
 
     plt.tight_layout()
-    plt.savefig("Task_7.png")
     plt.show()
