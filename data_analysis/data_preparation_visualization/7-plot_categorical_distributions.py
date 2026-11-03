@@ -17,6 +17,7 @@ def plot_categorical_distributions(df, columns_to_plot=None):
     for i, col in enumerate(columns_to_plot):
         df[col].value_counts().plot(kind="bar", ax=axes[i])
         axes[i].set_title(col)
+        axes[i].set_xlabel("")
         axes[i].tick_params(axis="x", rotation=45)
 
     for j in range(len(columns_to_plot), len(axes)):
