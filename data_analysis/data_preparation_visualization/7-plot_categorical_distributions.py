@@ -21,7 +21,7 @@ def plot_categorical_distributions(df, columns_to_plot=None):
         axes[i].tick_params(axis="x", rotation=45)
 
     for j in range(len(columns_to_plot), len(axes)):
-        axes[j].axis("off")
+        fig.delaxes(axes[j])
 
     plt.tight_layout()
     plt.savefig("Task_7.png")
