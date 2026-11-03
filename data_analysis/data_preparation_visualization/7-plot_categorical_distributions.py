@@ -6,8 +6,10 @@ import matplotlib.pyplot as plt
 def plot_categorical_distributions(df, columns_to_plot=None):
     """Plot bar charts of value counts for each categorical column."""
     if columns_to_plot is None:
-        columns_to_plot = df.select_dtypes(include="object").columns
-        columns_to_plot = [c for c in columns_to_plot if c != "Churn"]
+        columns_to_plot = [
+            col for col in df.select_dtypes(include="object").columns
+            if col != "Churn"
+        ]
 
     n_cols = 3
     n_rows = (len(columns_to_plot) + n_cols - 1) // n_cols
@@ -15,13 +17,8 @@ def plot_categorical_distributions(df, columns_to_plot=None):
     axes = axes.flatten()
 
     for i, col in enumerate(columns_to_plot):
-        df[col].value_counts().plot(kind="bar", ax=axes[i])
+        df[col].value_counts().plot(kind="bar", ax=axes[i], rot=45)
         axes[i].set_title(col)
-        axes[i].set_xlabel("")
-        axes[i].tick_params(axis="x", rotation=45)
-
-    for j in range(len(columns_to_plot), len(axes)):
-        fig.delaxes(axes[j])
 
     plt.tight_layout()
     plt.savefig("Task_7.png")
