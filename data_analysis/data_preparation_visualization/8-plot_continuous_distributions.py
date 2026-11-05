@@ -22,7 +22,7 @@ def plot_continuous_distributions(df, columns_to_plot=None):
         axes[i, 0].hist(data, bins=30, density=True, alpha=0.7,
                         edgecolor="black")
         kde = stats.gaussian_kde(data)
-        x = np.linspace(data.min(), data.max(), 1000)
+        x = np.linspace(data.min(), data.max(), 100)
         axes[i, 0].plot(x, kde(x), color="red", linestyle="--")
         axes[i, 0].set_title(col + " Histogram + KDE")
 
