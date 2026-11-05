@@ -13,9 +13,9 @@ def encode_features(df):
 
     binary_cols = ["Partner", "Dependents", "PaperlessBilling",
                    "SeniorCitizen"]
-    binary_oe = preprocessing.OrdinalEncoder(
-        categories=[["No", "Yes"]] * len(binary_cols))
-    df[binary_cols] = binary_oe.fit_transform(df[binary_cols]).astype(int)
+    binary_oe = preprocessing.OrdinalEncoder(categories=[["No", "Yes"]])
+    for col in binary_cols:
+        df[col] = binary_oe.fit_transform(df[[col]]).astype(int)
 
     df = pd.get_dummies(df, columns=["Contract", "PaymentMethod"],
                         drop_first=True)
