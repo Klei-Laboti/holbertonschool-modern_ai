@@ -24,6 +24,7 @@ problem regularization exists to solve.
 | File | Task |
 |---|---|
 | 0-linear_regression.py | Build an untrained LinearRegression model |
+| 1-regression_evaluation_metrics.py | Compute MSE, RMSE, MAE and R2 |
 
 ## Author
 
